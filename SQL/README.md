@@ -14,5 +14,5 @@ IF(expr1,expr2,expr3)
 
 示例如下：
 ```
-SELECT IF(gender=1, "男","女") AS s FROM `sys_user` WHERE gender != '';
+SELECT IF(gender=1, "男","女") AS gender_hz FROM `sys_user` WHERE gender != '';
 ```
