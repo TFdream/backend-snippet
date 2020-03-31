@@ -61,3 +61,15 @@ public abstract class CommonUtils {
 }
 
 ```
+
+### 3.校验用户名
+```
+public static final String REGEX_USERNAME = "^[a-zA-Z]\\w{5,20}$";
+```
+
+### 4.验证邮箱
+```
+public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+```
+
+
