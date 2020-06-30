@@ -25,7 +25,7 @@ CREATE TABLE `crm_call_center_user` (
 `update_time` datetime NOT NULL COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `uniq_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='呼叫中心登录用户信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='呼叫中心登录用户信息表';
 ```
 
 ## 增加/删除列
