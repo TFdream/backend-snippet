@@ -6,6 +6,8 @@ DROP DATABASE IF EXISTS `product`;
 CREATE DATABASE `product` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ```
 
+推荐使用utf8mb4字符集，MySQL中由于历史原因utf8mb4才是真正的UTF-8字符集，废弃utf8。
+
 ## 创建表
 ```
 CREATE TABLE `crm_call_center_user` (
