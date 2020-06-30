@@ -1,5 +1,29 @@
 # SQL
 
+## 增加/删除列
+增加列：
+```
+ALTER TABLE `pig_v2_task` ADD COLUMN `agent_name` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席真实名称';
+```
+
+修改列类型：
+```
+ALTER TABLE `pig_v2_task` MODIFY COLUMN `agent_name` varchar(128) NOT NULL DEFAULT '' COMMENT '坐席真实名称';
+```
+
+删除列：
+```
+ALTER TABLE `pig_v2_task` DROP COLUMN `agent_name`;
+```
+## 增加/删除索引
+增加索引：
+```
+ALTER TABLE `pre_forum_thread` ADD KEY idx_authorid_displayorder (`authorid`, `displayorder`);
+```
+删除索引：
+```
+ALTER TABLE `pre_forum_thread` DROP KEY `idx_authorid`;
+```
 ## SQL针对某一字段去重，并且保留最近一条记录
 ```
 select * from `sys_v3_report_record` where id in (select max(id) from `sys_v3_report_record` group by user_id);
