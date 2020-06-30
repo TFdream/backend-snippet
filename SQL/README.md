@@ -1,5 +1,33 @@
 # SQL
 
+## 创建数据库
+```
+DROP DATABASE IF EXISTS `product`;
+CREATE DATABASE `product` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+```
+
+## 创建表
+```
+CREATE TABLE `crm_call_center_user` (
+`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` bigint(20) NOT NULL COMMENT 'crm用户id',
+`agent_id` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席ID',
+`agent_name` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席真实名称',
+`agent_nickname` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席昵称',
+`agent_email` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席邮箱',
+`call_way` smallint(4) NOT NULL DEFAULT '2' COMMENT 'Sip登录方式, 1:网页电话，2:sip话机，3:手机',
+`voip_account` varchar(45) NOT NULL DEFAULT '' COMMENT '坐席voip账号',
+`display_number` varchar(40) NOT NULL DEFAULT '' COMMENT '外显号码',
+`group_id` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席所属技能组名称',
+`version` int(10) NOT NULL DEFAULT '1' COMMENT '版本号',
+`login_time` datetime NOT NULL COMMENT '最近一次登录时间',
+`create_time` datetime NOT NULL COMMENT '创建时间',
+`update_time` datetime NOT NULL COMMENT '更新时间',
+PRIMARY KEY (`id`),
+UNIQUE KEY `uniq_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='呼叫中心登录用户信息表';
+```
+
 ## 增加/删除列
 增加列：
 ```
