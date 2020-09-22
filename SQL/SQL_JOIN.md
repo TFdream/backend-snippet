@@ -77,3 +77,6 @@ ON table 1.column_name=table 2.column_name
 
 FULL OUTER JOIN产生1和2的并集。但是需要注意的是，对于没有匹配的记录，则会以null做为值。
 
+
+## 相关文章
+* [SQL的各种连接Join详解](https://www.cnblogs.com/reaptomorrow-flydream/p/8145610.html)
