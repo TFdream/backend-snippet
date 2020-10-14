@@ -1,4 +1,6 @@
 # group语句
+
+## 1、统计次数
 学生表如下：
 ```
 CREATE TABLE `student` (
@@ -19,3 +21,16 @@ CREATE TABLE `student` (
 SELECT country as 国家,COUNT(*) as 次数 FROM student GROUP BY country;
 
 ```
+
+## 2、SQL针对某一字段去重，并且保留最近一条记录
+到访记录按照user_id去重，并且保留最近一条记录，如下：
+```
+select * from `sys_v3_report_record` where id in (select max(id) from `sys_v3_report_record` group by user_id);
+```
+
+带筛选条件分页：
+```
+select * from (select * from sys_v3_report_record where id IN (
+      select max(id) from sys_v3_report_record where report_time >='2020-06-01 00:00:00' group by user_id))  tmp order by id desc limit 10; 
+```
+
