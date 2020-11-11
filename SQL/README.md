@@ -42,6 +42,11 @@ UNIQUE KEY `uniq_user_id` (`user_id`)
 ALTER TABLE `pig_v2_task` ADD COLUMN `agent_name` varchar(64) NOT NULL DEFAULT '' COMMENT '坐席真实名称';
 ```
 
+还可以指定该列的顺序：
+```
+ALTER TABLE `product_info` ADD COLUMN third_category_id int(10) NOT NULL DEFAULT 0 COMMENT '三级分类ID' AFTER `secondary_category_name`;
+```
+
 修改列类型：
 ```
 ALTER TABLE `pig_v2_task` MODIFY COLUMN `agent_name` varchar(128) NOT NULL DEFAULT '' COMMENT '坐席真实名称';
