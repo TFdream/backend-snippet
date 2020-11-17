@@ -33,3 +33,78 @@ Map<Integer, Apple> appleMap = appleList.stream().collect(Collectors.toMap(Apple
 需要注意的是：
 * toMap 如果集合对象有重复的key，会报错Duplicate key错误
 * 如果apple1,apple2的id都为1 可以用 (k1,k2)->k1 来设置，如果有重复的key,则保留key1,舍弃key2
+
+
+## List排序
+### 方式1
+```
+List<Developer> listDevs = ComparatorTest.getDevelopers();
+
+System.out.println("排序前:");
+//JAVA8的写法，循环
+listDevs.forEach((developer)->System.out.println(developer));
+
+//第一个写法
+Collections.sort(listDevs, new Comparator<Developer>() {
+    @Override
+    public int compare(Developer o1, Developer o2) {
+        return o1.getAge().compareTo(o2.getAge());
+    }
+});
+```
+
+### 方式2
+按年龄升序(Integer类型)如下：
+```
+List<StudentInfo> studentsSortName = studentList.stream().sorted(Comparator.comparing(StudentInfo::getAge)).collect(Collectors.toList());
+```
+
+按年龄排序(Integer类型)如下：
+```
+List<StudentInfo> studentsSortName = studentList.stream().sorted(Comparator.comparing(StudentInfo::getAge).reversed()).collect(Collectors.toList());
+```
+
+使用年龄进行降序排序，年龄相同再使用身高升序排序：
+```
+        //按年龄排序(Integer类型)
+        List<StudentInfo> studentsSortName = studentList.stream()
+                .sorted(Comparator.comparing(StudentInfo::getAge).reversed().thenComparing(StudentInfo::getHeight))
+                .collect(Collectors.toList());
+```
+
+### 方式3
+
+基础类型List排序:
+```
+//对数字进行排序
+List<Integer> nums = Arrays.asList(3,1,5,2,9,8,4,10,6,7);
+nums.sort(Comparator.reverseOrder()); //reverseOrder倒序
+System.err.println("倒序:"+nums);
+
+nums.sort(Comparator.naturalOrder()); //naturalOrder自然排序即：正序
+System.err.println("正序:"+nums);
+```
+
+对象List单属性排序:
+```
+List<Developer> listDevs = ComparatorTest.getDevelopers();
+listDevs.sort((Developer o1, Developer o2)->o1.getAge().compareTo(o2.getAge()));
+```
+
+也可以如下：
+```
+//第四个写法,Lambda写法，JAVA8的写法
+//listDevs.sort((o1, o2)->o1.getAge().compareTo(o2.getAge()));
+
+//第五写法,个Lambda写法，JAVA8的写法
+//listDevs.sort(Comparator.comparing(Developer::getAge));
+```
+
+```
+//第六写法,个Lambda写法，JAVA8的写法
+Comparator<Developer> ageComparator = (o1, o2)->o1.getAge().compareTo(o2.getAge());
+listDevs.sort(ageComparator);       //按上面配置的顺序取值
+listDevs.sort(ageComparator.reversed());    //按上面配置的顺序反向取值
+```
+
+
