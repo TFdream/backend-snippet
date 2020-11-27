@@ -65,3 +65,6 @@ where exists
 (select * from goods where goods.cat_id=category.cat_id); 
 ```
 
+## 相关资料
+* [MySQL子查询join连接union](https://www.cnblogs.com/gimin/p/7081863.html)
+
