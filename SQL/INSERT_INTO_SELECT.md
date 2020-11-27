@@ -60,3 +60,11 @@ CREATE TABLE `es_shop_order_remark` (
 INSERT INTO `es_shop_order_remark`(`order_id`, `remark`, `shop_id`, `create_time`) 
 select so.`id` AS order_id, tmp.`remark`, tmp.`shop_id`, tmp.`create_time` from `es_shop_order_remark_tmp` tmp join  es_shop_order so on tmp.order_no = so.order_no;
 ```
+
+### 复杂点
+筛选es_shop_order_remark_tmp表符合条件的记录插入到es_shop_order_remark表，如下：
+```
+INSERT INTO `es_shop_order_remark`(`order_id`, `remark`, `shop_id`, `create_time`) 
+select so.`id` AS order_id, tmp.`remark`, tmp.`shop_id`, tmp.`create_time` from (select * from `es_shop_order_remark_tmp` where id > 3143) as tmp  join  es_shop_order so on tmp.order_no = so.order_no;
+```
+
