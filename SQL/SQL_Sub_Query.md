@@ -7,8 +7,8 @@
 
 如果where 列 in（内层sql），则内层sql只返回单列，可以多行。
 
-查出本网站最新的（goods_id最大）的一条商品, 按goods_id desc排序，再取第一行
-``
+查出本网站最新的（goods_id最大）的一条商品, 按goods_id desc排序，再取第一行:
+```
 select goods_id,goods_name from goods
 order by goods_id desc limit 0,1;
 ```
