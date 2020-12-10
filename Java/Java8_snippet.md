@@ -28,12 +28,16 @@ System.err.println("groupBy:"+groupBy);
 ## List转Map
 id为key，apple对象为value，可以这么做：
 ```
-Map<Integer, Apple> appleMap = appleList.stream().collect(Collectors.toMap(Apple::getId, a -> a,(k1,k2)->k1));
+Map<Long, OrderAggregationDTO> orderMap = orderList.stream().collect(Collectors.toMap(OrderAggregationDTO::getOrderGoodsId, a -> a));
 ```
 需要注意的是：
 * toMap 如果集合对象有重复的key，会报错Duplicate key错误
 * 如果apple1,apple2的id都为1 可以用 (k1,k2)->k1 来设置，如果有重复的key,则保留key1,舍弃key2
 
+示例如下：
+```
+Map<Integer, Apple> appleMap = appleList.stream().collect(Collectors.toMap(Apple::getId, a -> a,(k1,k2)->k1));
+```
 
 ## List排序
 ### 方式1
