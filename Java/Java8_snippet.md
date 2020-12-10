@@ -111,4 +111,31 @@ listDevs.sort(ageComparator);       //按上面配置的顺序取值
 listDevs.sort(ageComparator.reversed());    //按上面配置的顺序反向取值
 ```
 
+## 去重
+### 1.去除List中重复的String
+```
+List<String> unique = list.stream().distinct().collect(Collectors.toList());
+```
+
+或者：
+```
+Set<Integer> userIds = list.stream().map(OrderAggregationDTO::getMemberId).collect(Collectors.toSet());
+```
+
+### 2.去除List中重复的对象
+根据name去重:
+```
+List<Person> unique = persons.stream().collect(
+            Collectors.collectingAndThen(
+                    Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Person::getName))), ArrayList::new)
+);
+```
+
+根据name,sex两个属性去重:
+```
+List<Person> unique = persons.stream().collect(
+           Collectors. collectingAndThen(
+                    Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(o -> o.getName() + ";" + o.getSex()))), ArrayList::new)
+);
+```
 
