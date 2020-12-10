@@ -36,7 +36,7 @@ Map<Long, OrderAggregationDTO> orderMap = orderList.stream().collect(Collectors.
 
 示例如下：
 ```
-Map<Integer, Apple> appleMap = appleList.stream().collect(Collectors.toMap(Apple::getId, a -> a,(k1,k2)->k1));
+Map<Long, OrderAggregationDTO> orderMap = orderList.stream().collect(Collectors.toMap(OrderAggregationDTO::getOrderGoodsId, a -> a,(k1,k2) -> k1));
 ```
 
 ## List排序
