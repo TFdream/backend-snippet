@@ -139,3 +139,14 @@ List<Person> unique = persons.stream().collect(
 );
 ```
 
+## java8 list统计（求和、最大、最小、平均）
+```
+list.stream().mapToDouble(User::getHeight).sum()//和
+list.stream().mapToDouble(User::getHeight).max()//最大
+list.stream().mapToDouble(User::getHeight).min()//最小
+list.stream().mapToDouble(User::getHeight).average()//平均值
+```
+当然，除了统计double类型，还有int和long
+```
+list.stream().mapToInt(OrderAggregationDTO::getQuantity).sum()//和
+```
