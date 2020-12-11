@@ -150,3 +150,9 @@ list.stream().mapToDouble(User::getHeight).average()//平均值
 ```
 list.stream().mapToInt(OrderAggregationDTO::getQuantity).sum()//和
 ```
+
+BigDecimal需要用到reduce求和
+```
+
+```
+
