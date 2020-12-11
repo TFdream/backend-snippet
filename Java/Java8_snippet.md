@@ -153,6 +153,6 @@ list.stream().mapToInt(OrderAggregationDTO::getQuantity).sum()//和
 
 BigDecimal需要用到reduce求和
 ```
-
+BigDecimal totalPayCash = list.stream().map(OrderAggregationDTO::getPartnerActualCash).reduce(BigDecimal::add).get();
 ```
 
