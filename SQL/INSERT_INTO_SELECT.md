@@ -68,3 +68,16 @@ INSERT INTO `es_shop_order_remark`(`order_id`, `remark`, `shop_id`, `create_time
 select so.`id` AS order_id, tmp.`remark`, tmp.`shop_id`, tmp.`create_time` from (select * from `es_shop_order_remark_tmp` where id > 3143) as tmp  join  es_shop_order so on tmp.order_no = so.order_no;
 ```
 
+### 示例
+
+将店铺8中 商品编码前4位是0010的商品加上 特殊标签，SQL如下：
+```
+insert into es_shop_goods_label_map(goods_id, label_id, shop_id) 
+SELECT distinct(og.id) AS goods_id, 16, og.shop_id AS shop_id from es_shop_goods_option op INNER JOIN es_shop_goods og on op.goods_id = og.id and op.shop_id = 8 and op.goods_code LIKE '0010-%';
+```
+
+也可以这样做：
+```
+insert into es_shop_goods_label_map(goods_id, label_id, shop_id) 
+select id AS goods_id, 16, shop_id from es_shop_goods where id in (SELECT distinct(goods_id) from es_shop_goods_option where goods_code LIKE '0010-%');
+```
