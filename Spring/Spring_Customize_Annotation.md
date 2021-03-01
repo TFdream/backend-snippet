@@ -207,9 +207,9 @@ public class DynamicDataSourceAnnotationConfig {
     public DefaultPointcutAdvisor defaultPointcutAdvisor() {
         DynamicDataSourceInterceptor interceptor = new DynamicDataSourceInterceptor();
  
-        // AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(DSRouting.class, true);
-        JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
-        pointcut.setPatterns("com.github.*");
+        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(DSRouting.class, DSRouting.class, true);
+        //JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
+        //pointcut.setPatterns("com.github.*");
  
         // 配置增强类advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
