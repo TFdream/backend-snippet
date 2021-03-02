@@ -182,18 +182,32 @@ B.andThen(A).apply(5))
 
 代码如下：
 ```
-public void test(){
-    Function<Integer,Integer> A=i->i+1;
-    Function<Integer,Integer> B=i->i*i;
-    System.out.println("F1:"+B.apply(A.apply(5)));
-    System.out.println("F1:"+B.compose(A).apply(5));
-    System.out.println("F2:"+A.apply(B.apply(5)));
-    System.out.println("F2:"+B.andThen(A).apply(5));
-}
-/** F1:36 */
-/** F1:36 */
-/** F2:26 */
-/** F2:26 */
+    @Test
+    //@Ignore
+    public void testFunction() {
+        Function<String, String> f1 = (str) -> str.concat("fun");
+        Function<String, String> f2 = (str) -> str.concat("abc");
+
+        String input = "ricky_";
+        System.out.println("===== compose =====");
+        System.out.println("F1="+f1.compose(f2).apply(input));
+        //等价形式
+        System.out.println("F1="+f1.apply(f2.apply(input)));
+
+        System.out.println("===== andThen =====");
+        System.out.println("F2="+f1.andThen(f2).apply(input));
+        //等价形式
+        System.out.println("F2="+f2.apply(f1.apply(input)));
+    }
+```
+输出结果如下：
+```
+===== compose =====
+F1=ricky_abcfun
+F1=ricky_abcfun
+===== andThen =====
+F2=ricky_funabc
+F2=ricky_funabc
 ```
 
 我们可以看到上述两个方法的返回值都是一个Function，这样我们就可以使用建造者模式的操作来使用。
