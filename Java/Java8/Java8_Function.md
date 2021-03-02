@@ -186,7 +186,7 @@ B.andThen(A).apply(5))
     //@Ignore
     public void testFunction() {
         Function<String, String> f1 = (str) -> str.concat("fun");
-        Function<String, String> f2 = (str) -> str.concat("abc");
+        Function<String, String> f2 = (str) -> str.concat("coder");
 
         String input = "ricky_";
         System.out.println("===== compose =====");
@@ -203,11 +203,11 @@ B.andThen(A).apply(5))
 输出结果如下：
 ```
 ===== compose =====
-F1=ricky_abcfun
-F1=ricky_abcfun
+F1=ricky_coderfun
+F1=ricky_coderfun
 ===== andThen =====
-F2=ricky_funabc
-F2=ricky_funabc
+F2=ricky_funcoder
+F2=ricky_funcoder
 ```
 
 我们可以看到上述两个方法的返回值都是一个Function，这样我们就可以使用建造者模式的操作来使用。
