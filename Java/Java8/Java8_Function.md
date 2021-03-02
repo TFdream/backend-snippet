@@ -171,3 +171,45 @@ andThen跟compose正相反，先执行当前的逻辑，再执行传入的逻辑
         return (T t) -> after.apply(apply(t));
     }
 ```
+
+这样说可能不够直观，我可以换个说法给你看看
+
+B.compose(A).apply(5)
+compose等价于B.apply(A.apply(5))
+
+B.andThen(A).apply(5))
+而andThen等价于A.apply(B.apply(5))。
+
+代码如下：
+```
+public void test(){
+    Function<Integer,Integer> A=i->i+1;
+    Function<Integer,Integer> B=i->i*i;
+    System.out.println("F1:"+B.apply(A.apply(5)));
+    System.out.println("F1:"+B.compose(A).apply(5));
+    System.out.println("F2:"+A.apply(B.apply(5)));
+    System.out.println("F2:"+B.andThen(A).apply(5));
+}
+/** F1:36 */
+/** F1:36 */
+/** F2:26 */
+/** F2:26 */
+```
+
+我们可以看到上述两个方法的返回值都是一个Function，这样我们就可以使用建造者模式的操作来使用。
+
+### 3 identity方法
+Java 8允许在接口中加入具体方法。接口中的具体方法有两种，default方法和static方法，identity()就是Function接口的一个静态方法。
+Function.identity()返回一个输出跟输入一样的Lambda表达式对象，等价于形如t -> t形式的Lambda表达式
+
+```
+    /**
+     * Returns a function that always returns its input argument.
+     *
+     * @param <T> the type of the input and output objects to the function
+     * @return a function that always returns its input argument
+     */
+    static <T> Function<T, T> identity() {
+        return t -> t;
+    }
+```
