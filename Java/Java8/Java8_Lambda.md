@@ -39,6 +39,42 @@ x -> 2 * x
 (String s) -> System.out.print(s)
 ```
 
+### 方法引用
+#### 1 对象::实例方法
+对象::实例方法，将lambda的参数当做方法的参数使用
+```
+objectInstance::methodName
+```
+示例：
+```
+        Member member = new Member();
+        Supplier<Integer> getAge = member::getAge;
+```
+
+#### 2 类::静态方法
+类::静态方法，将lambda的参数当做方法的参数使用
+```
+ClassName::methodName
+```
+示例：
+```
+        Function<Integer, String> sf = String::valueOf;
+        //等效
+        Function<Integer, String> sf2 = (x) -> String.valueOf(x);
+        String apply1 = sf.apply(61888);
+```
+
+### 3构造函数
+无参的构造方法就是
+类::实例方法模型，如：
+```
+        Supplier<User> us = User::new;
+        //等效
+        Supplier<User> us2 = () -> new User();
+        //获取对象
+        User user = us.get();
+```
+
 ### 相关资料
 * [Java Lambda 表达式](https://www.runoob.com/java/java8-lambda-expressions.html)
 * 
