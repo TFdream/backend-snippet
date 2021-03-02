@@ -23,7 +23,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-
     private static InetAddress getLocalAddress() {
         try {
             for (Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces(); interfaces.hasMoreElements();) {
@@ -31,13 +30,24 @@ import java.util.Enumeration;
                 if (ni.isLoopback() || ni.isVirtual() || !ni.isUp()) {
                     continue;
                 }
-                Enumeration<InetAddress> addresses = ni.getInetAddresses();
-                if (addresses.hasMoreElements()) {
-                    return addresses.nextElement();
+                InetAddress ia = getPreferAddress(ni.getInetAddresses());
+                if (ia != null) {
+                    return ia;
                 }
             }
         } catch (SocketException e) {
-            LOGGER.error("获取日志Ip异常", e);
+            throw new RuntimeException("获取日志Ip异常", e);
+        }
+        return null;
+    }
+
+    private static InetAddress getPreferAddress(Enumeration<InetAddress> enums) {
+        while (enums != null && enums.hasMoreElements()) {
+            InetAddress ia = enums.nextElement();
+            if (ia.isLoopbackAddress() || ia instanceof Inet6Address) {
+                continue;
+            }
+            return ia;
         }
         return null;
     }
