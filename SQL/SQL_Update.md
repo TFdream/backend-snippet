@@ -8,8 +8,7 @@ CREATE TABLE `class` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '班级名称',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
-  PRIMARY KEY (`id`),
-  KEY `idx_class_id` (`class_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='班级表';
 ```
 
