@@ -1,6 +1,9 @@
-需求：
+
+**需求：**
+
 已经存在的MySQL数据表，希望增加一个自增主键的字段，并设置新数据的初始值。
 
+## 测试表
 通过以下命令查看表结构
 ```
 show create table es_shop_goods_label_map;
