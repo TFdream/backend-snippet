@@ -10,21 +10,21 @@ show create table es_shop_goods_label_map;
 ```
 如下：
 ```
-CREATE TABLE `es_shop_goods_label_map` (
-  `goods_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品ID',
-  `label_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品标签(支持)ID',
-  `shop_id` int(11) NOT NULL DEFAULT '0' COMMENT '店铺ID',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  KEY `idx_goods_id` (`goods_id`),
-  KEY `idx_laber_id` (`label_id`),
+CREATE TABLE `es_shop_goods_cate_map` (
+  `category_id` int(11) NOT NULL DEFAULT 0,
+  `goods_id` int(11) NOT NULL DEFAULT 0,
+  `shop_id` int(11) NOT NULL DEFAULT 0,
+  `_level` tinyint(2) NOT NULL DEFAULT 0 COMMENT '分类层级, 与es_shop_goods_category表level一致',
+  `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新时间',
+  PRIMARY KEY (`category_id`,`goods_id`,`shop_id`),
+  UNIQUE KEY `idx_goods_id_2` (`goods_id`,`category_id`,`shop_id`),
   KEY `idx_shop_id` (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品所属商品标签(支持)信息'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-
 
 添加自增字段并设置新数据的起始值：
 ```
-alter table `es_shop_goods_group_map` drop PRIMARY KEY;
+alter table `es_shop_goods_cate_map` drop PRIMARY KEY;
 
-alter table `es_shop_goods_group_map` add column id int(11) unsigned auto_increment primary key comment '自增主键' FIRST;
+alter table `es_shop_goods_cate_map` add column id int(11) unsigned auto_increment primary key comment '自增主键' FIRST;
 ```
