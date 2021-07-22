@@ -58,6 +58,7 @@
 
 ## 二、支持jdk8的日期类型
 
+### 1、基础用法
 首先需要添加依赖：
 ```
         <jackson.version>2.11.4</jackson.version>
@@ -87,6 +88,9 @@
 
 UserDTO如下：
 ```
+/**
+ * @author Ricky Fung
+ */
 public class UserDTO {
     private Long id;
     private String name;
@@ -95,6 +99,11 @@ public class UserDTO {
      * 生日
      */
     private LocalDate birthday;
+
+    /**
+     * 工作时间
+     */
+    private LocalTime workTime;
 
     /**
      * 注册时间
@@ -148,5 +157,68 @@ public class UserDTO {
   "updateTime" : "2021-07-22 10:58:56"
 }
 
+```
+
+### 2、进阶版
+
+自定义模块：
+```
+import com.fasterxml.jackson.core.json.PackageVersion;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+public class Java8TimeCustomModule extends SimpleModule {
+
+	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
+	private static final String TIME_FORMAT = "HH:mm:ss";
+
+	public Java8TimeCustomModule() {
+		super(PackageVersion.VERSION);
+		this.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)));
+		this.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+		this.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_FORMAT)));
+
+		this.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)));
+		this.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+		this.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(TIME_FORMAT)));
+	}
+}
+```
+
+测试用例：
+```
+    @Test
+    public void testJSON() throws IOException {
+        ObjectMapper mapper = new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.INDENT_OUTPUT, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .registerModule(new Java8TimeCustomModule())
+                .setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(1L);
+        userDTO.setName("张三丰");
+        userDTO.setBirthday(LocalDate.of(2002, 7, 1));
+        userDTO.setWorkTime(LocalTime.of(9, 0, 0));
+        userDTO.setRegTime(LocalDateTime.of(2021, 7, 1, 0, 0, 0));
+        userDTO.setUpdateTime(new Date());
+        userDTO.setCreateTime(new Date());
+
+        String json = mapper.writeValueAsString(userDTO);
+        byte[] buf = mapper.writeValueAsBytes(userDTO);
+        System.out.println(json);
+    }
 ```
 
