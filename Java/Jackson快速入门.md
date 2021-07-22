@@ -222,3 +222,15 @@ public class Java8TimeCustomModule extends SimpleModule {
     }
 ```
 
+输出：
+```
+{
+  "id" : 1,
+  "name" : "张三丰",
+  "birthday" : "2002-07-01",
+  "workTime" : "09:00:00",
+  "regTime" : "2021-07-01 00:00:00",
+  "createTime" : "2021-07-22 11:14:23",
+  "updateTime" : "2021-07-22 11:14:23"
+}
+```
