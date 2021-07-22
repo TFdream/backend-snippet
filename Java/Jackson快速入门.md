@@ -20,11 +20,24 @@
 
 ### 序列化对象
 ```
-    CustomerOrderBill bill = new CustomerOrderBill();
-    //序列化-字符串
-    String json = mapper.writeValueAsString(bill);
-    //序列化-字节数组
-    byte[] buf = mapper.writeValueAsBytes(bill);
+    @Test
+    public void testJSON() throws IOException {
+        ObjectMapper mapper = new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.INDENT_OUTPUT, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+        CustomerOrderBill bill = new CustomerOrderBill();
+        bill.setId(1L);
+        bill.setUpdateTime(new Date());
+        bill.setCreateTime(new Date());
+        bill.setName("测试账单");
+        //序列化
+        String json = mapper.writeValueAsString(bill);
+        byte[] buf = mapper.writeValueAsBytes(bill);
+        System.out.println(json);
+    }
 ```
 
 ### 反序列化
