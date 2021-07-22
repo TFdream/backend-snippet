@@ -40,6 +40,12 @@
         System.out.println(json);
     }
 ```
+或者：
+```
+	JavaType javaType = mapper.getTypeFactory().constructType(UserDTO.class);
+	mapper.writerFor(javaType).writeValueAsBytes(userDTO);
+```
+
 输出：
 ```
 {
@@ -54,6 +60,12 @@
 ```
         CustomerOrderBill bill = mapper.readValue(json, CustomerOrderBill.class);
         CustomerOrderBill bill = mapper.readValue(buf, CustomerOrderBill.class);
+```
+
+或者：
+```
+	Type type = ...;
+	mapper.readValue(json, mapper.constructType(type));
 ```
 
 ## 二、支持jdk8的日期类型
