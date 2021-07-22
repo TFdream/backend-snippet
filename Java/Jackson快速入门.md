@@ -13,7 +13,7 @@
 ```
     ObjectMapper mapper = new ObjectMapper()
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-            .configure(SerializationFeature.INDENT_OUTPUT, true)
+            .configure(SerializationFeature.INDENT_OUTPUT, true) //控制pretty printer
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 ```
