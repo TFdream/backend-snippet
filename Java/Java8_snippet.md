@@ -13,6 +13,16 @@ List<Apple> filterList = appleList.stream().filter(a -> a.getName().equals("香�
  
 System.err.println("filterList:"+filterList);
 ```
+
+## 分组
+List里面的对象元素，以某个属性来分组，例如，以id分组，将id相同的放在一起：
+```
+//List 以ID分组 Map<Integer,List<Apple>>
+Map<Integer, List<Apple>> groupBy = appleList.stream().collect(Collectors.groupingBy(Apple::getId));
+ 
+System.err.println("groupBy:"+groupBy);
+{1=[Apple{id=1, name='苹果1', money=3.25, num=10}, Apple{id=1, name='苹果2', money=1.35, num=20}], 2=[Apple{id=2, name='香蕉', money=2.89, num=30}], 3=[Apple{id=3, name='荔枝', money=9.99, num=40}]}
+```
 ### 根据多个字段来分组
 例如：
 ```
@@ -25,16 +35,6 @@ System.err.println("filterList:"+filterList);
 	}
 ```
 
-
-## 分组
-List里面的对象元素，以某个属性来分组，例如，以id分组，将id相同的放在一起：
-```
-//List 以ID分组 Map<Integer,List<Apple>>
-Map<Integer, List<Apple>> groupBy = appleList.stream().collect(Collectors.groupingBy(Apple::getId));
- 
-System.err.println("groupBy:"+groupBy);
-{1=[Apple{id=1, name='苹果1', money=3.25, num=10}, Apple{id=1, name='苹果2', money=1.35, num=20}], 2=[Apple{id=2, name='香蕉', money=2.89, num=30}], 3=[Apple{id=3, name='荔枝', money=9.99, num=40}]}
-```
 
 ## List转Map
 id为key，apple对象为value，可以这么做：
