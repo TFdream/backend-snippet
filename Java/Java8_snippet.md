@@ -13,6 +13,17 @@ List<Apple> filterList = appleList.stream().filter(a -> a.getName().equals("香�
  
 System.err.println("filterList:"+filterList);
 ```
+### 根据多个字段来分组
+例如：
+```
+	List<PmsShelvesActivity> actList = new ArrayList<>(keySet.size());
+	//按照 shop_id + 商品编码分组
+	Map<String, List<PmsShelvesActivity>> resultMap = actList.stream().collect(Collectors.groupingBy(e -> getUnionKey(e.getShopId(), e.getProductCode())));
+
+	private String getUnionKey(Integer shopId, String goodsCode) {
+		return String.format("%s#%s", shopId, goodsCode);
+	}
+```
 
 
 ## 分组
