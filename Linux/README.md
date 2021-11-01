@@ -1,5 +1,11 @@
 # 常用Linux命令
 
+## curl
+curl POST JSON：
+```
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"id":2228359,"userId":5797485,"shopId":5,"memberId":41603,"changeValue":19799,"changeType":3,"businessId":"ES20211101000118308307","changeDirection":2,"changeComment":"积分兑换","createTime":"2021-11-01 00:01:18","beforeChange":56555,"afterChange":36756,"orderId":931670,"orderGoodsIds":"1388666"}' http://renzhen-smap-scheduler.user.renzhenmall.prod/task/shopping-ranking/buy
+
+```
 
 ## mv命令
 ### 1、语法
